@@ -29,7 +29,8 @@ class StartActivity : AppCompatActivity() {
             }
 
             startButton.setOnClickListener {
-
+                val intent = Intent(this@StartActivity,ActivitiesActivity::class.java)
+                startActivity(intent)
             }
 
             textViewTerms.setOnClickListener {
