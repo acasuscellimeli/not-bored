@@ -1,6 +1,8 @@
 package com.app.notbored.views
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +10,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import androidx.core.widget.addTextChangedListener
 import com.app.notbored.R
+import com.app.notbored.constants.Constants
 import com.app.notbored.databinding.ActivityStartBinding
 
 class StartActivity : AppCompatActivity() {
@@ -25,10 +28,12 @@ class StartActivity : AppCompatActivity() {
         with(binding) {
             editTextParticipants.addTextChangedListener {
                 startButton.isEnabled = !(it.toString().contains("." ) || it.toString().contains(","))
-
             }
 
             startButton.setOnClickListener {
+                val sharedPref = this@StartActivity.getPreferences(Context.MODE_PRIVATE).edit()
+                sharedPref.putInt(Constants.PARTICIPANTS,editTextParticipants.text.toString().toInt())
+                sharedPref.apply()
                 val intent = Intent(this@StartActivity,ActivitiesActivity::class.java)
                 startActivity(intent)
             }

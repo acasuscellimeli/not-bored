@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.app.notbored.R
 import com.app.notbored.recyclerView.ActivityAdapter
 import com.app.notbored.databinding.ActivityActivitiesBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ActivitiesActivity : AppCompatActivity() {
 
@@ -20,6 +23,8 @@ class ActivitiesActivity : AppCompatActivity() {
         configurateView()
     }
 
+
+
     private fun configurateView() {
         with(binding){
             toolBar.icLeft.visibility = View.GONE
@@ -32,7 +37,17 @@ class ActivitiesActivity : AppCompatActivity() {
     }
 
     private fun recyclerViewInit(){
-        adapter = ActivityAdapter()
+        adapter = ActivityAdapter(this)
         binding.activitiesRecyclerView.adapter = adapter
     }
+
+    fun searchRandom(query:String){
+
+
+
+
+    }
+
+
+
 }
