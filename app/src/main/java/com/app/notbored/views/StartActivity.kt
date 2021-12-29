@@ -1,5 +1,6 @@
 package com.app.notbored.views
 
+import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,7 +24,8 @@ class StartActivity : AppCompatActivity() {
     private fun configurateView() {
         with(binding) {
             editTextParticipants.addTextChangedListener {
-                startButton.isEnabled = !it.toString().contains("." ) || !it.toString().contains(",")
+                startButton.isEnabled = !(it.toString().contains("." ) || it.toString().contains(","))
+
             }
 
             startButton.setOnClickListener {
@@ -31,7 +33,8 @@ class StartActivity : AppCompatActivity() {
             }
 
             textViewTerms.setOnClickListener {
-                
+                val intent = Intent(this@StartActivity,TermsAndConditionsActivity::class.java)
+                startActivity(intent)
             }
         }
     }
