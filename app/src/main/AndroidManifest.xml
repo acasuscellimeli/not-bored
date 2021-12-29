@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Notbored">
         <activity
-            android:name=".MainActivity"
+            android:name=".views.StartActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
