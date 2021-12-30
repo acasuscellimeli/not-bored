@@ -10,6 +10,6 @@ interface APIServiceBored {
     @GET("activity")
     suspend fun getActivityRandom(@Query("participants") participants:Int) : Response<ActivityResponse>
 
-    @GET
-    suspend fun getActivityByType(@Query("type") type:String , @Query("participants") participants:Int):Response<ActivityResponse>
+    @GET("activity")
+    suspend fun getActivityByType(@Query("type") type:String, @Query("participants") participants:Int) : Response<ActivityResponse>
 }

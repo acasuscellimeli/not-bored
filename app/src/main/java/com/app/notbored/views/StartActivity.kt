@@ -31,9 +31,12 @@ class StartActivity : AppCompatActivity() {
             }
 
             startButton.setOnClickListener {
-                val sharedPref = this@StartActivity.getPreferences(Context.MODE_PRIVATE).edit()
-                sharedPref.putInt(Constants.PARTICIPANTS,editTextParticipants.text.toString().toInt())
-                sharedPref.apply()
+                val sharedPref = this@StartActivity.getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE)
+                with (sharedPref.edit()) {
+                    putInt(Constants.PARTICIPANTS, editTextParticipants.text.toString().toInt())
+                    commit()
+                }
+
                 val intent = Intent(this@StartActivity,ActivitiesActivity::class.java)
                 startActivity(intent)
             }
