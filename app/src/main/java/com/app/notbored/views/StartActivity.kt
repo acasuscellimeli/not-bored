@@ -8,10 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import com.app.notbored.R
 import com.app.notbored.constants.Constants
 import com.app.notbored.databinding.ActivityStartBinding
+import com.app.notbored.utils.toast
 
 class StartActivity : AppCompatActivity() {
 
@@ -27,10 +29,14 @@ class StartActivity : AppCompatActivity() {
     private fun configurateView() {
         with(binding) {
             editTextParticipants.addTextChangedListener {
-                startButton.isEnabled = !(it.toString().contains("." ) || it.toString().contains(","))
+                startButton.isEnabled = !(it.toString().contains("." ) || it.toString().contains(",")) && editTextParticipants.text.toString() != "0"
             }
 
             startButton.setOnClickListener {
+                if(editTextParticipants.text.isEmpty()){
+                    toast("Please enter a valid value")
+                    return@setOnClickListener
+                }
                 val sharedPref = this@StartActivity.getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE)
                 with (sharedPref.edit()) {
                     putInt(Constants.PARTICIPANTS, editTextParticipants.text.toString().toInt())

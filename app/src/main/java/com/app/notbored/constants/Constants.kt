@@ -8,6 +8,8 @@ object Constants {
     const val PARTICIPANT_DEFAULT_VALUE = 1
     const val BASE_URL = "http://www.boredapi.com/api/"
     const val SHARED_PREF = "sharedpref"
+    const val INTENT_DETAILS = "activityResponse"
+    const val INTENT_RANDOM = "randomActivity"
 
 
 }

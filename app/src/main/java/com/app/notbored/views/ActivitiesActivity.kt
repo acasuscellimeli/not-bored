@@ -1,6 +1,7 @@
 package com.app.notbored.views
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -68,7 +69,7 @@ class ActivitiesActivity : AppCompatActivity() {
                     activityResponse?.let {
 
                         if (activityResponse.error.isNullOrEmpty())
-                            navigateToDetail(activityResponse)
+                            navigateToDetail(activityResponse,random)
                         else
                             showErrorMessage()
 
@@ -81,9 +82,12 @@ class ActivitiesActivity : AppCompatActivity() {
         }
     }
 
-    private fun navigateToDetail(activityResponse : ActivityResponse){
+    private fun navigateToDetail(activityResponse : ActivityResponse,random:Boolean){
         println(activityResponse.getPriceStr())
-        //TODO Navigate to detail page
+        val intent = Intent(this,DetailActivity::class.java)
+        intent.putExtra(Constants.INTENT_DETAILS,activityResponse)
+        intent.putExtra(Constants.INTENT_RANDOM,random)
+        startActivity(intent)
     }
 
     private fun showErrorMessage(){
