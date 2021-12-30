@@ -6,14 +6,13 @@ import com.app.notbored.service.ActivitySevice
 import com.app.notbored.utils.*
 import com.app.notbored.views.ActivitiesActivity
 
-class ActivityViewHolder(view: View,var activity: ActivitiesActivity) : RecyclerView.ViewHolder(view) {
+class ActivityViewHolder(view: View, var activity: ActivitiesActivity) : RecyclerView.ViewHolder(view) {
     private val binding = ActivityItemBinding.bind(view)
-    fun bind(activityPosition:String){
+    fun bind(activityDescription:String){
         with(binding){
-            binding.activityTittle.text = activityPosition.toCapitalize()
-
-            binding.itemContainer.setOnClickListener {
-                ActivitySevice().searchRandom(activity)
+            activityTittle.text = activityDescription.toCapitalize()
+            itemContainer.setOnClickListener {
+                activity.searchActivity(type = activityDescription)
             }
         }
     }
