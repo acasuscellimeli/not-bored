@@ -7,6 +7,13 @@ import retrofit2.http.Query
 import retrofit2.http.Url
 
 interface APIServiceBored {
+
+    @GET("activity")
+    suspend fun getActivityRandom() : Response<ActivityResponse>
+
+    @GET("activity")
+    suspend fun getActivityByType(@Query("type") type:String) : Response<ActivityResponse>
+
     @GET("activity")
     suspend fun getActivityRandom(@Query("participants") participants:Int) : Response<ActivityResponse>
 

@@ -29,7 +29,7 @@ class StartActivity : AppCompatActivity() {
     private fun configurateView() {
         with(binding) {
             editTextParticipants.addTextChangedListener {
-                startButton.isEnabled = !(it.toString().contains("." ) || it.toString().contains(",")) && editTextParticipants.text.toString() != "0"
+                startButton.isEnabled = !(it.toString().contains("." ) || it.toString().contains(","))
                 if (startButton.isEnabled){
                     startButton.setBackgroundResource(R.drawable.base_button)
                 }else{
@@ -38,13 +38,14 @@ class StartActivity : AppCompatActivity() {
             }
 
             startButton.setOnClickListener {
-                if(editTextParticipants.text.isEmpty()){
-                    toast("Please enter a valid value")
-                    return@setOnClickListener
-                }
+                val participants = if(editTextParticipants.text.isEmpty())
+                    Constants.PARTICIPANT_DEFAULT_VALUE.toString()
+                else
+                    editTextParticipants.text.toString()
+
                 val sharedPref = this@StartActivity.getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE)
                 with (sharedPref.edit()) {
-                    putInt(Constants.PARTICIPANTS, editTextParticipants.text.toString().toInt())
+                    putInt(Constants.PARTICIPANTS, participants.toInt())
                     commit()
                 }
 

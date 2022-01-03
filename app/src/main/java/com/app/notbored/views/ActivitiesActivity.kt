@@ -35,7 +35,9 @@ class ActivitiesActivity : AppCompatActivity() {
 
     private fun setUpToolBar() {
         with(binding){
-            toolBar.icLeft.visibility = View.GONE
+            toolBar.icLeft.setOnClickListener {
+                onBackPressed()
+            }
             toolBar.toolbarTittle.text = getString(R.string.activities)
             toolBar.icRight.setBackgroundResource(R.drawable.ic_random)
             toolBar.icRight.setOnClickListener {
@@ -56,10 +58,19 @@ class ActivitiesActivity : AppCompatActivity() {
         val dialog = LoadingDialog(this)
         dialog.showAlertDialog()
         CoroutineScope(Dispatchers.IO).launch {
-            val call:Response<ActivityResponse> = if (random){
-                ActivitySevice().getRetrofit().create(APIServiceBored::class.java).getActivityRandom(participants)
+
+            val call:Response<ActivityResponse> = if (participants == 0){
+                if (random){
+                    ActivitySevice().getRetrofit().create(APIServiceBored::class.java).getActivityRandom()
+                }else{
+                    ActivitySevice().getRetrofit().create(APIServiceBored::class.java).getActivityByType(type)
+                }
             }else{
-                ActivitySevice().getRetrofit().create(APIServiceBored::class.java).getActivityByType(type, participants)
+                if (random){
+                    ActivitySevice().getRetrofit().create(APIServiceBored::class.java).getActivityRandom(participants)
+                }else{
+                    ActivitySevice().getRetrofit().create(APIServiceBored::class.java).getActivityByType(type, participants)
+                }
             }
 
             val activityResponse : ActivityResponse? = call.body()
