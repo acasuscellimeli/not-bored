@@ -43,7 +43,9 @@ class DetailActivity : AppCompatActivity() {
             txtActivityParticipants.text=details.participants.toString()
             txtActivityPrice.text=details.getPriceStr()
             txtActivityType.text=details.type
-            txtActivityType.visibility = if (random) View.VISIBLE else View.GONE
+            val imgResource = resources.getIdentifier("ic_${details.type}", "drawable", packageName)
+            imgActivityType.setImageResource(imgResource)
+            cardViewType.visibility = if (random) View.VISIBLE else View.GONE
             btnReload.setOnClickListener {
                 searchActivity(random,details.type)
             }
@@ -92,12 +94,14 @@ class DetailActivity : AppCompatActivity() {
         with(binding){
             toolBar.toolbarTittle.text = if (random) getString(R.string.txt_random) else activityResponse.type.toCapitalize()
             txtActivityDescription.text = activityResponse.activity
-            txtActivityParticipants.text=activityResponse.participants.toString()
-            txtActivityPrice.text=activityResponse.getPriceStr()
-            txtActivityType.text=activityResponse.type
-            txtActivityType.visibility = if (random) View.VISIBLE else View.GONE
+            txtActivityParticipants.text = activityResponse.participants.toString()
+            txtActivityPrice.text = activityResponse.getPriceStr()
+            txtActivityType.text = activityResponse.type
+            cardViewType.visibility = if (random) View.VISIBLE else View.GONE
+            val imgResource = resources.getIdentifier("ic_${activityResponse.type}", "drawable", packageName)
+            imgActivityType.setImageResource(imgResource)
             btnReload.setOnClickListener {
-                searchActivity(random,activityResponse.type)
+                searchActivity(random, activityResponse.type)
             }
         }
     }
