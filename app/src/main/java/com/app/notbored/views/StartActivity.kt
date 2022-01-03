@@ -22,8 +22,13 @@ class StartActivity : AppCompatActivity() {
 
     private fun configurateView() {
         with(binding) {
+            editTextParticipants.setOnLongClickListener {
+                return@setOnLongClickListener true
+            }
+
             editTextParticipants.addTextChangedListener {
-                startButton.isEnabled = !(it.toString().contains("." ) || it.toString().contains(","))
+                startButton.isEnabled = !(it.toString().contains("." ) || it.toString().contains(",")
+                        || it.toString().contains("-") || it.toString().contains(" "))
                 if (startButton.isEnabled){
                     startButton.setBackgroundResource(R.drawable.base_button)
                 }else{
