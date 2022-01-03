@@ -33,6 +33,9 @@ class ActivitiesActivity : AppCompatActivity() {
         setUpToolBar()
     }
 
+    /**
+     * Method too set up tool bar elements , tittle and button visibilities and aspects
+     */
     private fun setUpToolBar() {
         with(binding){
             toolBar.icLeft.setOnClickListener {
@@ -46,11 +49,17 @@ class ActivitiesActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Start the adapter for activities list
+     */
     private fun recyclerViewInit(){
         adapter = ActivityAdapter(this)
         binding.activitiesRecyclerView.adapter = adapter
     }
 
+    /**
+     * Make the api call depending on which activity was selected
+     */
     fun searchActivity(random:Boolean = false, type:String = "") {
         val sharedPref = getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE)
         val participants = sharedPref.getInt(Constants.PARTICIPANTS, Constants.PARTICIPANT_DEFAULT_VALUE)
@@ -93,6 +102,9 @@ class ActivitiesActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * navigate to next view to show detailed info of the activity
+     */
     private fun navigateToDetail(activityResponse : ActivityResponse,random:Boolean){
         println(activityResponse.getPriceStr())
         val intent = Intent(this,DetailActivity::class.java)

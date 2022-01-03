@@ -98,6 +98,9 @@ class DetailActivity : AppCompatActivity() {
         showSnackbar(binding.root, "No activity found with the specified participants", isRedAlert = true)
     }
 
+    /**
+     * When try another button is clicked launch again api call and set the new values to the view
+     */
     private fun reLoadView(activityResponse: ActivityResponse,random: Boolean){
         with(binding){
             toolBar.toolbarTittle.text = if (random) getString(R.string.txt_random) else activityResponse.type.toCapitalize()
