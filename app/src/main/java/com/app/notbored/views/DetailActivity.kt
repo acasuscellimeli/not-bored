@@ -11,8 +11,8 @@ import com.app.notbored.service.APIServiceBored
 import com.app.notbored.service.ActivityResponse
 import com.app.notbored.service.ActivitySevice
 import com.app.notbored.utils.LoadingDialog
+import com.app.notbored.utils.showSnackbar
 import com.app.notbored.utils.toCapitalize
-import com.app.notbored.utils.toast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -95,7 +95,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun showErrorMessage(){
-        toast("No activity found with the specified participants")
+        showSnackbar(binding.root, "No activity found with the specified participants", isRedAlert = true)
     }
 
     private fun reLoadView(activityResponse: ActivityResponse,random: Boolean){

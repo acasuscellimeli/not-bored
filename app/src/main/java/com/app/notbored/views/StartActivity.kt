@@ -1,19 +1,13 @@
 package com.app.notbored.views
-
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import com.app.notbored.R
 import com.app.notbored.constants.Constants
 import com.app.notbored.databinding.ActivityStartBinding
-import com.app.notbored.utils.toast
+import com.app.notbored.utils.showSnackbar
 
 class StartActivity : AppCompatActivity() {
 
@@ -38,6 +32,11 @@ class StartActivity : AppCompatActivity() {
             }
 
             startButton.setOnClickListener {
+                if (!checkedTermsBox.isChecked){
+                    showSnackbar(binding.root, "Please accept the terms and conditions to continue")
+                    return@setOnClickListener
+                }
+
                 val participants = if(editTextParticipants.text.isEmpty())
                     Constants.PARTICIPANT_DEFAULT_VALUE.toString()
                 else

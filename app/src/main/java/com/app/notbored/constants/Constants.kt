@@ -10,6 +10,4 @@ object Constants {
     const val SHARED_PREF = "sharedpref"
     const val INTENT_DETAILS = "activityResponse"
     const val INTENT_RANDOM = "randomActivity"
-
-
 }
