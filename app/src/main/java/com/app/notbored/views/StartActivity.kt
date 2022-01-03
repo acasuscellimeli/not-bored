@@ -30,6 +30,11 @@ class StartActivity : AppCompatActivity() {
         with(binding) {
             editTextParticipants.addTextChangedListener {
                 startButton.isEnabled = !(it.toString().contains("." ) || it.toString().contains(",")) && editTextParticipants.text.toString() != "0"
+                if (startButton.isEnabled){
+                    startButton.setBackgroundResource(R.drawable.base_button)
+                }else{
+                    startButton.setBackgroundResource(R.drawable.disabled_base_button)
+                }
             }
 
             startButton.setOnClickListener {
