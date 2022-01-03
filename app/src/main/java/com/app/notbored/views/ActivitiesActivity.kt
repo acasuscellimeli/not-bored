@@ -35,7 +35,9 @@ class ActivitiesActivity : AppCompatActivity() {
 
     private fun setUpToolBar() {
         with(binding){
-            toolBar.icLeft.visibility = View.GONE
+            toolBar.icLeft.setOnClickListener {
+                onBackPressed()
+            }
             toolBar.toolbarTittle.text = getString(R.string.activities)
             toolBar.icRight.setBackgroundResource(R.drawable.ic_random)
             toolBar.icRight.setOnClickListener {
