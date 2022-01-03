@@ -54,15 +54,15 @@
         android:id="@+id/checkedTermsBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="43dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewTerms"
+        app:layout_constraintTop_toTopOf="@+id/textViewTerms"
         android:buttonTint="@color/yellow"
         app:layout_constraintEnd_toStartOf="@id/textViewTerms"/>
 
     <TextView
         android:id="@+id/textViewTerms"
         style="@style/baseTextView"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="20dp"
         android:clickable="true"
         android:focusable="true"
         android:text="@string/terms_and_conditions"
