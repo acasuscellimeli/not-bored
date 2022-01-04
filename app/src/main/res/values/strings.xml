@@ -17,4 +17,12 @@
     <string name="price">Price</string>
     <string name="price_example">Medium</string>
     <string name="type_example">Relaxation</string>
+
+    <!--    Error Messages     -->
+    <string name="no_activity_found">No activity found with the specified participants</string>
+    <string name="connection_error">Please check your internet connection</string>
+
+    <!--    General Messages     -->
+    <string name="accept_terms_message">Please accept the terms and conditions to continue</string>
+
 </resources>

@@ -38,7 +38,7 @@ class StartActivity : AppCompatActivity() {
 
             startButton.setOnClickListener {
                 if (!checkedTermsBox.isChecked){
-                    showSnackbar(binding.root, "Please accept the terms and conditions to continue")
+                    showSnackbar(binding.root, getString(R.string.accept_terms_message))
                     return@setOnClickListener
                 }
 
