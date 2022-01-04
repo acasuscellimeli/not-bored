@@ -17,6 +17,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import java.io.IOException
 
 class DetailActivity : AppCompatActivity() {
 
@@ -60,42 +61,54 @@ class DetailActivity : AppCompatActivity() {
         val dialog = LoadingDialog(this)
         dialog.showAlertDialog()
         CoroutineScope(Dispatchers.IO).launch {
-            val call:Response<ActivityResponse> = if (participants == 0){
-                if (random){
-                    ActivitySevice().getRetrofit().create(APIServiceBored::class.java).getActivityRandom()
+            try {
+                val call:Response<ActivityResponse> = if (participants == 0){
+                    if (random){
+                        ActivitySevice().getRetrofit().create(APIServiceBored::class.java).getActivityRandom()
+                    }else{
+                        ActivitySevice().getRetrofit().create(APIServiceBored::class.java).getActivityByType(type)
+                    }
                 }else{
-                    ActivitySevice().getRetrofit().create(APIServiceBored::class.java).getActivityByType(type)
+                    if (random){
+                        ActivitySevice().getRetrofit().create(APIServiceBored::class.java).getActivityRandom(participants)
+                    }else{
+                        ActivitySevice().getRetrofit().create(APIServiceBored::class.java).getActivityByType(type, participants)
+                    }
                 }
-            }else{
-                if (random){
-                    ActivitySevice().getRetrofit().create(APIServiceBored::class.java).getActivityRandom(participants)
-                }else{
-                    ActivitySevice().getRetrofit().create(APIServiceBored::class.java).getActivityByType(type, participants)
+
+                val activityResponse : ActivityResponse? = call.body()
+
+                runOnUiThread {
+                    if (call.isSuccessful){
+                        activityResponse?.let {
+
+                            if (activityResponse.error.isNullOrEmpty())
+                                reLoadView(activityResponse,random)
+                            else
+                                showErrorMessage()
+
+                        } ?: showErrorMessage()
+                    }else
+                        showErrorMessage()
+
+                    dialog.hideAlertDialog()
                 }
-            }
-
-            val activityResponse : ActivityResponse? = call.body()
-
-            runOnUiThread {
-                if (call.isSuccessful){
-                    activityResponse?.let {
-
-                        if (activityResponse.error.isNullOrEmpty())
-                            reLoadView(activityResponse,random)
-                        else
-                            showErrorMessage()
-
-                    } ?: showErrorMessage()
-                }else
-                    showErrorMessage()
-
+            } catch (e: IOException) {
                 dialog.hideAlertDialog()
+                showErrorMessage(connectionFail = true)
             }
         }
     }
 
-    private fun showErrorMessage(){
-        showSnackbar(binding.root, "No activity found with the specified participants", isRedAlert = true)
+    private fun showErrorMessage(connectionFail:Boolean = false){
+        var message = getString(R.string.no_activity_found)
+        if (connectionFail)
+            message = getString(R.string.connection_error)
+        showSnackbar(
+            binding.root,
+            message,
+            isRedAlert = true
+        )
     }
 
     /**
